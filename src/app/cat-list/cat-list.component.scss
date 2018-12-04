@@ -4,25 +4,11 @@
   justify-content: center;
 }
 
-.mat-card-image {
-  max-height: 200px;
-}
-
-.cat-list-favorite {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-mat-card {
+app-cat-item {
   width: 32%;
   margin-right: 15px;
   padding-bottom: 0;
   &:last-child {
     margin-right: 0;
   }
-}
-
-mat-card-actions {
-  margin-left: 0;
 }

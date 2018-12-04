@@ -1,3 +1,12 @@
-<p>
-  cat-item works!
-</p>
+<mat-card>
+  <img mat-card-image [src]="cat.imagePath" [alt]="cat.name">
+  <mat-card-title>{{ cat.name }}</mat-card-title>
+  <mat-card-subtitle>Price - ${{ cat.price }}</mat-card-subtitle>
+  <mat-card-actions>
+    <button color="primary" mat-raised-button>View Details</button>
+    <button color="accent" mat-raised-button>Add to Cart</button>
+  </mat-card-actions>
+  <button class="cat-list-favorite" mat-icon-button color="accent">
+      <mat-icon aria-label="favorite">favorite</mat-icon>
+  </button>
+</mat-card>
