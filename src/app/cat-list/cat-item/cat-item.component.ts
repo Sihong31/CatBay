@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Cat } from '../cat.model';
+import { CatDetailsComponent } from '../cat-details/cat-details.component';
 
 @Component({
   selector: 'app-cat-item',
@@ -8,6 +9,7 @@ import { Cat } from '../cat.model';
 })
 export class CatItemComponent implements OnInit {
   @Input() cat: Cat;
+  @Input () catId;
 
   constructor() { }
 

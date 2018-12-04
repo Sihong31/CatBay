@@ -1,0 +1,19 @@
+.cat-details-container {
+  max-width: 50%;
+  margin: 0 auto;
+}
+
+.cat-details__image {
+  width: 100%;
+}
+
+.cat-details__actions {
+  margin-top: 15px;
+  text-align: right;
+  button {
+    margin-right: 15px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

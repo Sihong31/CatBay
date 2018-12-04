@@ -31,4 +31,8 @@ export class CatsService {
   getCats() {
     return this.cats.slice();
   }
+
+  getCat(id: number) {
+    return this.cats.slice()[id];
+  }
 }

@@ -1,3 +1,3 @@
 <div class="cat-list-container">
-    <app-cat-item *ngFor="let cat of cats" [cat]="cat"></app-cat-item>
+    <app-cat-item *ngFor="let cat of cats; let i = index" [cat]="cat" [catId]="i"></app-cat-item>
 </div>

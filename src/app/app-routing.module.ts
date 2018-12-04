@@ -7,7 +7,7 @@ import { CatDetailsComponent } from './cat-list/cat-details/cat-details.componen
 const routes: Routes = [
   { path: '', component: CatListComponent, pathMatch: 'full' },
   { path: 'cats', component: CatListComponent },
-  { path: 'cat-details', component: CatDetailsComponent }
+  { path: 'cats/:id', component: CatDetailsComponent }
 ];
 
 @NgModule({
