@@ -15,7 +15,7 @@ export class CatEditComponent implements OnInit {
   form: FormGroup;
   catId: string;
   cat: Cat;
-  private editMode = false;
+  editMode = false;
 
   constructor(private route: ActivatedRoute, private catsService: CatsService) { }
 
@@ -69,8 +69,10 @@ export class CatEditComponent implements OnInit {
       return;
     }
     if (!this.editMode) {
+      this.cat = this.form.value;
       this.catsService.createCat(this.cat);
     } else {
+      this.cat = this.form.value;
       this.catsService.updateCat(this.catId, this.cat);
     }
     this.form.reset();

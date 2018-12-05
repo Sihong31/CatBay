@@ -1,7 +1,7 @@
 <mat-spinner *ngIf="isLoading; else notLoading"></mat-spinner>
 <ng-template #notLoading>
   <mat-card>
-    <h2>Create a cat!</h2>
+    <h2>{{ (!editMode) ? 'Create a cat!' : 'Update a cat!'}}</h2>
     <form id="cat-form" [formGroup]="form" (submit)="onSaveCat()">
       <mat-form-field>
         <input
@@ -62,7 +62,7 @@
         <button
           mat-raised-button
           type="submit"
-          color="accent">Save</button>
+          color="accent">{{ (!editMode) ? 'Create': 'Update' }}</button>
       </mat-card-actions>
     </form>
   </mat-card>
