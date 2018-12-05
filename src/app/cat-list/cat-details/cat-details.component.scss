@@ -1,3 +1,10 @@
+mat-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .cat-details-container {
   max-width: 50%;
   margin: 0 auto;

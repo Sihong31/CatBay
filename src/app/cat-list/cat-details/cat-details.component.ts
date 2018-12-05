@@ -13,17 +13,20 @@ import { Cat } from '../cat.model';
 export class CatDetailsComponent implements OnInit {
   cat: Cat;
   catId: number;
+  isLoading = true;
 
   constructor(private catsService: CatsService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe(
       (params) => {
-        this.catId = +params['id'];
-        this.cat = this.catsService.getCat(this.catId);
+        this.catId = params['id'];
       }
     );
-    // this.cat = this.catsService.getCat(0);
+    this.catsService.getCat(this.catId)
+      .subscribe((catData: {message: string, cat: Cat}) => {
+        this.cat = catData.cat;
+        this.isLoading = false;
+      });
   }
-
 }

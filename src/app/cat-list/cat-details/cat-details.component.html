@@ -1,13 +1,16 @@
-<div class="cat-details-container">
-  <h2 class="cat-details__title">{{ cat.name }} - ${{ cat.price }}</h2>
-  <img class="cat-details__image" [src]="cat.imagePath" [alt]="cat.description" />
-  <p class="cat-details__description">{{ cat.description }}</p>
-  <p class="cat-details__age">Age: {{ cat.age }} </p>
-  <p>Weight: {{ cat.weight }}</p>
-  <mat-divider></mat-divider>
-  <div class="cat-details__actions">
-    <button mat-raised-button color="primary">Edit</button>
-    <button mat-raised-button color="warn">Delete</button>
+<mat-spinner *ngIf="isLoading; else notLoading"></mat-spinner>
+<ng-template #notLoading>
+  <div class="cat-details-container">
+    <h2 class="cat-details__title">{{ cat.name }} - ${{ cat.price }}</h2>
+    <img class="cat-details__image" [src]="cat.imagePath" [alt]="cat.description" />
+    <p class="cat-details__description">{{ cat.description }}</p>
+    <p class="cat-details__age">Age: {{ cat.age }} </p>
+    <p>Weight: {{ cat.weight }}</p>
+    <mat-divider></mat-divider>
+    <div class="cat-details__actions">
+      <button mat-raised-button color="primary">Edit</button>
+      <button mat-raised-button color="warn">Delete</button>
+    </div>
   </div>
+</ng-template>
 
-</div>

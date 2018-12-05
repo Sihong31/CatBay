@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { CatsService } from './cats.service';
 import { Cat } from './cat.model';
 
@@ -13,7 +14,10 @@ export class CatListComponent implements OnInit {
   constructor(private catsService: CatsService) { }
 
   ngOnInit() {
-    this.cats = this.catsService.getCats();
+    this.catsService.getCats()
+      .subscribe((catData: { message: string, cats: Cat[] }) => {
+        this.cats = catData.cats;
+      });
   }
 
 }
