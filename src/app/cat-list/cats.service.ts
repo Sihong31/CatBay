@@ -38,7 +38,7 @@ export class CatsService {
     return this.http.get<{message: string, cats: Cat[]}>('http://localhost:3000/cats');
   }
 
-  getCat(id: number) {
+  getCat(id: string) {
     return this.http.get<{message: string, cat: Cat}>(`http://localhost:3000/cats/${id}`);
   }
 
@@ -46,11 +46,11 @@ export class CatsService {
 
   }
 
-  updateCat(id: number, cat: Cat) {
+  updateCat(id: string, cat: Cat) {
 
   }
 
-  destroyCat(id: number) {
+  destroyCat(id: string) {
 
   }
 }

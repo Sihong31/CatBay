@@ -12,7 +12,7 @@ import { Cat } from '../cat.model';
 })
 export class CatDetailsComponent implements OnInit {
   cat: Cat;
-  catId: number;
+  catId: string;
   isLoading = true;
 
   constructor(private catsService: CatsService, private route: ActivatedRoute) { }
@@ -20,7 +20,7 @@ export class CatDetailsComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(
       (params) => {
-        this.catId = params['id'];
+        this.catId = params['catId'];
       }
     );
     this.catsService.getCat(this.catId)

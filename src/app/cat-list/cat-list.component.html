@@ -1,3 +1,8 @@
-<div class="cat-list-container">
+<h2>List of available cats</h2>
+<div class="cat-list__content">
+    <a mat-raised-button color="primary" routerLink="/cats/new">New Cat</a>
+    <mat-divider></mat-divider>
+</div>
+<div class="cat-list__container">
     <app-cat-item *ngFor="let cat of cats" [cat]="cat" [catId]="cat._id"></app-cat-item>
 </div>

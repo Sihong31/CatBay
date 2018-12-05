@@ -1,0 +1,71 @@
+<mat-spinner *ngIf="isLoading; else notLoading"></mat-spinner>
+<ng-template #notLoading>
+  <mat-card>
+    <h2>Create a cat!</h2>
+    <form id="cat-form" [formGroup]="form" (submit)="onSaveCat()">
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          formControlName="name"
+          minlength="3"
+          placeholder="Name">
+          <mat-error *ngIf="form.get('name').invalid">Please enter a name.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea
+          matInput
+          type="text"
+          formControlName="description"
+          placeholder="Description">
+        </textarea>
+        <mat-error *ngIf="form.get('description').invalid">Please enter a description.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="number"
+          formControlName="age"
+          placeholder="Age">
+        <mat-error *ngIf="form.get('age').invalid">Please enter an age.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="number"
+          formControlName="weight"
+          placeholder="Weight">
+        <mat-error *ngIf="form.get('weight').invalid">Please enter a weight.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="number"
+          formControlName="price"
+          placeholder="Price">
+        <mat-error *ngIf="form.get('price').invalid">Please enter a price.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          formControlName="imagePath"
+          placeholder="Image URL">
+          <mat-error *ngIf="form.get('imagePath').invalid">Please enter an image URL</mat-error>
+      </mat-form-field>
+      <mat-card-actions>
+        <button
+        mat-raised-button
+        type="button"
+        color="primary"
+        (click)="onClear()">Clear</button>
+        <button
+          mat-raised-button
+          type="submit"
+          color="accent">Save</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</ng-template>
+
+
