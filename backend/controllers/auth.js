@@ -29,5 +29,42 @@ exports.signup = (req, res, next) => {
 }
 
 exports.login = (req, res, next) => {
+  const email = req.body.email;
+  const password = req.body.password;
 
-}
+  let fetchedUser;
+
+  User.findOne({email: email})
+    .then(user => {
+      if (!user) {
+        const error = new Error('User not found!');
+        error.statusCode = 401;
+        throw error;
+      }
+      fetchedUser = user;
+      return bcrypt.compare(password, user.password);
+    })
+    .then(isEqualPassword => {
+      if (!isEqualPassword) {
+        const error = new Error('Invalid password!');
+        error.statusCode = 401;
+        throw error;
+      }
+      const token = jwt.sign({
+        email: fetchedUser.email,
+        userId: fetchedUser._id.toString()
+      }, 'asuperlongsecretkeyhere', {expiresIn: '1h'});
+      res.status(200).json({
+        message: 'User logged in!',
+        token: token,
+        userId: fetchedUser._id.toString(),
+        expiresIn: 3600 * 1000
+      })
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+        next(err);
+      }
+    });
+};
