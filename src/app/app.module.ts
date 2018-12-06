@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -21,7 +21,9 @@ import { CatItemComponent } from './cat-list/cat-item/cat-item.component';
 import { CatDetailsComponent } from './cat-list/cat-details/cat-details.component';
 import { CatsService } from './cat-list/cats.service';
 import { CatEditComponent } from './cat-list/cat-edit/cat-edit.component';
-
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -30,13 +32,16 @@ import { CatEditComponent } from './cat-list/cat-edit/cat-edit.component';
     CatListComponent,
     CatItemComponent,
     CatDetailsComponent,
-    CatEditComponent
+    CatEditComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatCardModule,
@@ -47,7 +52,7 @@ import { CatEditComponent } from './cat-list/cat-edit/cat-edit.component';
     MatFormFieldModule,
     MatInputModule
   ],
-  providers: [CatsService],
+  providers: [CatsService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
