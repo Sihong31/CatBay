@@ -9,7 +9,7 @@
     <mat-divider></mat-divider>
     <div class="cat-details__actions">
       <a class="cat-details__edit" mat-raised-button color="primary" [routerLink]="['/cats', cat._id, 'edit']">Edit</a>
-      <a mat-raised-button color="warn">Delete</a>
+      <a mat-raised-button color="warn" (click)="onDelete()">Delete</a>
     </div>
   </div>
 </ng-template>

@@ -1,5 +1,5 @@
 {
-  "name": "catbay backend",
+  "name": "catbay-backend",
   "version": "1.0.0",
   "description": "catbay backend",
   "main": "server.js",

@@ -65,6 +65,9 @@ export class CatsService {
   }
 
   destroyCat(id: string) {
-
+    this.http.delete<{message: string}>(`http://localhost:3000/cats/${id}`)
+      .subscribe((result) => {
+        this.router.navigate(['/']);
+      });
   }
 }

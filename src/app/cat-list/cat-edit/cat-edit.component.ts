@@ -71,11 +71,11 @@ export class CatEditComponent implements OnInit {
     if (!this.editMode) {
       this.cat = this.form.value;
       this.catsService.createCat(this.cat);
+      this.form.reset();
     } else {
       this.cat = this.form.value;
       this.catsService.updateCat(this.catId, this.cat);
     }
-    this.form.reset();
   }
 
   onClear() {

@@ -29,4 +29,8 @@ export class CatDetailsComponent implements OnInit {
         this.isLoading = false;
       });
   }
+
+  onDelete() {
+    this.catsService.destroyCat(this.catId);
+  }
 }

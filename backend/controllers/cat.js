@@ -89,5 +89,25 @@ exports.updateCat = (req, res, next) => {
 }
 
 exports.deleteCat = (req, res, next) => {
-
+  const catId = req.params.catId;
+  Cat.findById(catId)
+    .then(cat => {
+      if (!cat) {
+        const error = new Error('Cat not found!');
+        error.statusCode(404);
+        throw error;
+      }
+      return Cat.findByIdAndDelete(catId);
+    })
+    .then(result => {
+      res.status(200).json({
+        message: 'Cat deleted!'
+      });
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+        next(err);
+      }
+    })
 }
