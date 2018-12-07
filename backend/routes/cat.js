@@ -1,6 +1,7 @@
 const express = require('express');
 
 const catController = require('../controllers/cat');
+const checkAuth = require('../middleware/check-auth.js');
 
 const router = express.Router();
 
@@ -8,15 +9,15 @@ const router = express.Router();
 router.get('', catController.getCats);
 
 // POST /cats
-router.post('', catController.createCat);
+router.post('', checkAuth, catController.createCat);
 
 // GET /cats/:catId
 router.get('/:catId', catController.getCat);
 
 // PUT /cats/:catId
-router.put('/:catId', catController.updateCat);
+router.put('/:catId', checkAuth, catController.updateCat);
 
 // DELETE /cats/:catId
-router.delete('/:catId', catController.deleteCat);
+router.delete('/:catId', checkAuth, catController.deleteCat);
 
 module.exports = router;

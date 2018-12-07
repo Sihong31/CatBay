@@ -43,13 +43,17 @@ export class AuthService {
       .subscribe((result) => {
         const token = result.token;
         if (token) {
-          const expiresInDuration = result.expiresIn;
-          this.setAuthTimer(expiresInDuration);
+          this.token = token;
           this.isAuthenticated = true;
           this.userId = result.userId;
           this.authStatusListener.next(true);
+
+          const expiresInDuration = result.expiresIn;
+          this.setAuthTimer(expiresInDuration);
+
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration);
+
           this.saveAuthData(token, expirationDate, this.userId);
           this.router.navigate(['/']);
         }
