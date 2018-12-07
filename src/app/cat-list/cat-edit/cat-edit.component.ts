@@ -22,7 +22,7 @@ export class CatEditComponent implements OnInit {
   constructor(private route: ActivatedRoute, private catsService: CatsService, private authService: AuthService) { }
 
   ngOnInit() {
-    this.userId = this.authService.userId;
+    this.userId = this.authService.getUserId();
     this.form = new FormGroup({
       name: new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
       description: new FormControl(null, {validators: [Validators.required]}),

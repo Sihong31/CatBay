@@ -1,4 +1,5 @@
 const Cat = require('../models/cat');
+const User = require('../models/user');
 
 exports.getCats = (req, res, next) => {
   Cat.find()
@@ -24,6 +25,13 @@ exports.createCat = (req, res, next) => {
     owner: req.body.owner
   });
   cat.save()
+    .then(result => {
+      return User.findById(req.userId);
+    })
+    .then(user => {
+      user.cats.push(cat);
+      return user.save();
+    })
     .then(result => {
       res.status(201).json({
         message: 'Cat created',
@@ -98,7 +106,19 @@ exports.deleteCat = (req, res, next) => {
         error.statusCode(404);
         throw error;
       }
+      if (cat.owner.toString() !== req.userId) {
+        const error = new Error('Not authorized');
+        error.statusCode(403);
+        throw error;
+      }
       return Cat.findByIdAndDelete(catId);
+    })
+    .then(result => {
+      return User.findById(req.userId);
+    })
+    .then(user => {
+      user.cats.pull(catId);
+      return user.save();
     })
     .then(result => {
       res.status(200).json({
