@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+
 import { Cat } from '../cat.model';
-import { CatDetailsComponent } from '../cat-details/cat-details.component';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-cat-item',
@@ -10,10 +11,15 @@ import { CatDetailsComponent } from '../cat-details/cat-details.component';
 export class CatItemComponent implements OnInit {
   @Input() cat: Cat;
   @Input () catId;
+  userIsAuthenticated: boolean;
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authService.getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
+      });
   }
-
 }

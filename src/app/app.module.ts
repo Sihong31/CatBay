@@ -24,6 +24,7 @@ import { CatEditComponent } from './cat-list/cat-edit/cat-edit.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthService } from './auth/auth.service';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AuthService } from './auth/auth.service';
     CatDetailsComponent,
     CatEditComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

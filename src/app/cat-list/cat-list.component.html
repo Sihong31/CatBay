@@ -1,6 +1,6 @@
 <h2>List of available cats</h2>
 <div class="cat-list__content">
-    <a mat-raised-button color="primary" routerLink="/cats/new">New Cat</a>
+    <a *ngIf="userIsAuthenticated" mat-raised-button color="primary" routerLink="/cats/new">New Cat</a>
     <mat-divider></mat-divider>
 </div>
 <div class="cat-list__container">

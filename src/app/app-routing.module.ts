@@ -6,6 +6,7 @@ import { CatDetailsComponent } from './cat-list/cat-details/cat-details.componen
 import { CatEditComponent } from './cat-list/cat-edit/cat-edit.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: '', component: CatListComponent, pathMatch: 'full' },
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'cats/:catId', component: CatDetailsComponent },
   { path: 'cats/:catId/edit', component: CatEditComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent }
+  { path: 'signup', component: SignupComponent },
+  { path: 'my-profile', component: UserProfileComponent }
 ];
 
 @NgModule({

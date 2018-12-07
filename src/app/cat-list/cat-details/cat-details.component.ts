@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { CatsService } from '../cats.service';
 import { Cat } from '../cat.model';
+import { AuthService } from 'src/app/auth/auth.service';
 
 
 @Component({
@@ -14,10 +15,12 @@ export class CatDetailsComponent implements OnInit {
   cat: Cat;
   catId: string;
   isLoading = true;
+  userIsAuthenticated: boolean;
 
-  constructor(private catsService: CatsService, private route: ActivatedRoute) { }
+  constructor(private catsService: CatsService, private authService: AuthService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.userIsAuthenticated = this.authService.getIsAuth();
     this.route.params.subscribe(
       (params) => {
         this.catId = params['catId'];
