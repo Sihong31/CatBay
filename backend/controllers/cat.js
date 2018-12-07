@@ -20,7 +20,8 @@ exports.createCat = (req, res, next) => {
     age: req.body.age,
     weight: req.body.weight,
     price: req.body.price,
-    imagePath: req.body.imagePath
+    imagePath: req.body.imagePath,
+    owner: req.body.owner
   });
   cat.save()
     .then(result => {

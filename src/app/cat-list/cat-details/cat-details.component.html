@@ -7,7 +7,7 @@
     <p class="cat-details__age">Age: {{ cat.age }} </p>
     <p>Weight: {{ cat.weight }}</p>
     <mat-divider *ngIf="userIsAuthenticated"></mat-divider>
-    <div *ngIf="userIsAuthenticated" class="cat-details__actions">
+    <div *ngIf="userIsAuthenticated && userIsAuthorized" class="cat-details__actions">
       <a   class="cat-details__edit" mat-raised-button color="primary" [routerLink]="['/cats', cat._id, 'edit']">Edit</a>
       <a mat-raised-button color="warn" (click)="onDelete()">Delete</a>
     </div>

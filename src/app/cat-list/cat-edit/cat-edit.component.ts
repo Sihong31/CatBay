@@ -4,6 +4,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { CatsService } from '../cats.service';
 import { Cat } from '../cat.model';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-cat-edit',
@@ -15,11 +16,13 @@ export class CatEditComponent implements OnInit {
   form: FormGroup;
   catId: string;
   cat: Cat;
+  userId: string;
   editMode = false;
 
-  constructor(private route: ActivatedRoute, private catsService: CatsService) { }
+  constructor(private route: ActivatedRoute, private catsService: CatsService, private authService: AuthService) { }
 
   ngOnInit() {
+    this.userId = this.authService.userId;
     this.form = new FormGroup({
       name: new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
       description: new FormControl(null, {validators: [Validators.required]}),
@@ -45,7 +48,8 @@ export class CatEditComponent implements OnInit {
                 age: retrievedCat.age,
                 weight: retrievedCat.weight,
                 price: retrievedCat.price,
-                imagePath: retrievedCat.imagePath
+                imagePath: retrievedCat.imagePath,
+                owner: retrievedCat.owner
               };
               this.form.setValue({
                 name: this.cat.name,
@@ -70,6 +74,7 @@ export class CatEditComponent implements OnInit {
     }
     if (!this.editMode) {
       this.cat = this.form.value;
+      this.cat.owner = this.userId;
       this.catsService.createCat(this.cat);
       this.form.reset();
     } else {

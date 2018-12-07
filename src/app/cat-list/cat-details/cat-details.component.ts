@@ -16,6 +16,7 @@ export class CatDetailsComponent implements OnInit {
   catId: string;
   isLoading = true;
   userIsAuthenticated: boolean;
+  userIsAuthorized: boolean;
 
   constructor(private catsService: CatsService, private authService: AuthService, private route: ActivatedRoute) { }
 
@@ -29,6 +30,8 @@ export class CatDetailsComponent implements OnInit {
     this.catsService.getCat(this.catId)
       .subscribe((catData: {message: string, cat: Cat}) => {
         this.cat = catData.cat;
+        // check if owner on cat matches currently logged in user
+        this.userIsAuthorized = this.cat.owner === this.authService.userId;
         this.isLoading = false;
       });
   }

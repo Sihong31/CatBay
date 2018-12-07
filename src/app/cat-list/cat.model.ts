@@ -6,4 +6,5 @@ export interface Cat {
   weight: number;
   price: number;
   imagePath: string;
+  owner: string;
 }
