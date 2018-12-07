@@ -10,5 +10,7 @@ router.post('/signup', authController.signup);
 // POST /auth/login
 router.post('/login', authController.login);
 
+// GET /auth/user/:userId
+router.get('/user/:userId', authController.fetchUser);
 
 module.exports = router;

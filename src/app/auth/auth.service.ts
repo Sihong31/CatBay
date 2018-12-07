@@ -10,6 +10,7 @@ export class AuthService {
   private tokenTimer: any;
   userId: string;
   authStatusListener = new Subject<boolean>();
+  userDataStatusListener = new Subject<any>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -47,6 +48,7 @@ export class AuthService {
           this.isAuthenticated = true;
           this.userId = result.userId;
           this.authStatusListener.next(true);
+          this.fetchUserData();
 
           const expiresInDuration = result.expiresIn;
           this.setAuthTimer(expiresInDuration);
@@ -85,7 +87,15 @@ export class AuthService {
       this.userId = authData.userId;
       this.setAuthTimer(expiresInDuration);
       this.authStatusListener.next(true);
+      this.fetchUserData();
     }
+  }
+
+  private fetchUserData() {
+    this.http.get<{message: string, userData: any}>(`http://localhost:3000/auth/user/${this.userId}`)
+      .subscribe(response => {
+        this.userDataStatusListener.next(response.userData.favoriteCats);
+      });
   }
 
   private setAuthTimer(duration: number) {

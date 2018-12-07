@@ -14,6 +14,10 @@ const userSchema = new Schema({
   cats: [{
     type: Schema.Types.ObjectId,
     ref: 'Cat'
+  }],
+  favoriteCats: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Cat'
   }]
 });
 

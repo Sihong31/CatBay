@@ -27,6 +27,9 @@ const catSchema = new Schema({
     type: String,
     required: true
   },
+  favoriteCat: {
+    type: Boolean
+  },
   owner: {
     type: Schema.Types.ObjectId,
     ref: 'User',

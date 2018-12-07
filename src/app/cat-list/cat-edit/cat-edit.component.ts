@@ -49,7 +49,8 @@ export class CatEditComponent implements OnInit {
                 weight: retrievedCat.weight,
                 price: retrievedCat.price,
                 imagePath: retrievedCat.imagePath,
-                owner: retrievedCat.owner
+                owner: retrievedCat.owner,
+                favoriteCat: false
               };
               this.form.setValue({
                 name: this.cat.name,

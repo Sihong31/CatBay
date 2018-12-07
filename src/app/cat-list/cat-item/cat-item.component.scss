@@ -6,6 +6,12 @@
   position: absolute;
   top: 0;
   right: 0;
+  mat-icon {
+    opacity: .25;
+  }
+  mat-icon.isFavorite {
+    opacity: 1;
+  }
 }
 
 mat-card-actions {

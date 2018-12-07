@@ -12,19 +12,33 @@ import { AuthService } from '../auth/auth.service';
 export class CatListComponent implements OnInit {
   cats: Cat[];
   userIsAuthenticated: boolean;
+  favoriteCats: [];
 
   constructor(private catsService: CatsService, private authService: AuthService) { }
 
   ngOnInit() {
     this.userIsAuthenticated = this.authService.getIsAuth();
+
     this.authService.getAuthStatusListener()
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
       });
+
+    this.authService.userDataStatusListener
+      .subscribe((favoriteCats: []) => {
+        this.favoriteCats = favoriteCats;
+      });
+
     this.catsService.getCats()
       .subscribe((catData: { message: string, cats: Cat[] }) => {
         this.cats = catData.cats;
+        this.cats.map(cat => {
+          this.favoriteCats.forEach(id => {
+            if (cat._id === id) {
+              cat.favoriteCat = true;
+            }
+          });
+        });
       });
   }
-
 }

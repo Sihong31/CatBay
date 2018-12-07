@@ -43,6 +43,20 @@ export class CatsService {
     return this.http.get<{message: string, cat: Cat}>(`http://localhost:3000/cats/${id}`);
   }
 
+  addFavoriteCat(catId: string) {
+    this.http.post<{message: string}>('http://localhost:3000/cats/favorite', { catId: catId })
+      .subscribe(result => {
+        console.log('favorite');
+      });
+  }
+
+  removeFavoriteCat(catId: string) {
+    this.http.post<{message: string}>('http://localhost:3000/cats/removeFavorite', { catId: catId })
+      .subscribe(result => {
+        console.log('unfavorite');
+      });
+  }
+
   createCat(cat: Cat) {
     // const catData = new FormData();
     // catData.append('name', cat.name);

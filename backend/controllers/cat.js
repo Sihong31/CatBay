@@ -1,6 +1,56 @@
 const Cat = require('../models/cat');
 const User = require('../models/user');
 
+exports.createFavorite = (req, res, next) => {
+  const catId = req.body.catId;
+  User.findById(req.userId)
+    .then(user => {
+      if (!user) {
+        const error = new Error('User not found!');
+        error.statusCode = 404;
+        throw error;
+      }
+      user.favoriteCats.push(catId);
+      return user.save();
+    })
+    .then(result => {
+      res.status(201).json({
+        message: 'Favorite created!'
+      })
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+        next(err);
+      }
+    })
+}
+
+exports.removeFavorite = (req, res, next) => {
+  const catId = req.body.catId;
+  User.findById(req.userId)
+    .then(user => {
+      if (!user) {
+        const error = new Error('User not found!');
+        error.statusCode = 404;
+        throw error;
+      }
+      user.favoriteCats.pull(catId);
+      return user.save();
+    })
+    .then(result => {
+      res.status(200).json({
+        message: 'Favorite removed!'
+      })
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+        next(err);
+      }
+    })
+}
+
 exports.getCats = (req, res, next) => {
   Cat.find()
     .then(cats => {
