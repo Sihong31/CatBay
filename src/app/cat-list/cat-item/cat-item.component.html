@@ -6,7 +6,7 @@
     <a color="primary" mat-raised-button [routerLink]="['cats', catId]">View Details</a>
     <a color="accent" mat-raised-button *ngIf="userIsAuthenticated">Add to Cart</a>
   </mat-card-actions>
-  <button class="cat-list-favorite" mat-icon-button color="accent" (click)="onToggleFavorite($event)">
+  <button *ngIf="userIsAuthenticated" class="cat-list-favorite" mat-icon-button color="accent" (click)="onToggleFavorite($event)">
       <mat-icon aria-label="favorite" [ngClass]="{'isFavorite': cat.favoriteCat}">favorite</mat-icon>
   </button>
 </mat-card>

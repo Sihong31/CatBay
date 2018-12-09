@@ -24,21 +24,30 @@ export class CatListComponent implements OnInit {
         this.userIsAuthenticated = isAuthenticated;
       });
 
-    this.authService.userDataStatusListener
-      .subscribe((favoriteCats: []) => {
-        this.favoriteCats = favoriteCats;
-      });
-
-    this.catsService.getCats()
-      .subscribe((catData: { message: string, cats: Cat[] }) => {
-        this.cats = catData.cats;
-        this.cats.map(cat => {
-          this.favoriteCats.forEach(id => {
-            if (cat._id === id) {
-              cat.favoriteCat = true;
-            }
-          });
+    if (this.userIsAuthenticated) {
+      this.authService.getUserDataStatusListener()
+      .subscribe((userData) => {
+        this.favoriteCats = userData.favoriteCats;
+        // get favoriteCats first and then get overall cats to do matching on
+        this.catsService.getCats()
+        .subscribe((catData: { message: string, cats: Cat[] }) => {
+          this.cats = catData.cats;
+          if (this.favoriteCats) {
+            this.cats.map(cat => {
+              this.favoriteCats.forEach((favoredCat: any) => {
+                if (cat._id === favoredCat._id) {
+                  cat.favoriteCat = true;
+                }
+              });
+            });
+          }
         });
       });
+    } else {
+      this.catsService.getCats()
+      .subscribe((catData: { message: string, cats: Cat[] }) => {
+        this.cats = catData.cats;
+      });
+    }
   }
 }

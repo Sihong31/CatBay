@@ -46,14 +46,12 @@ export class CatsService {
   addFavoriteCat(catId: string) {
     this.http.post<{message: string}>('http://localhost:3000/cats/favorite', { catId: catId })
       .subscribe(result => {
-        console.log('favorite');
       });
   }
 
   removeFavoriteCat(catId: string) {
     this.http.post<{message: string}>('http://localhost:3000/cats/removeFavorite', { catId: catId })
       .subscribe(result => {
-        console.log('unfavorite');
       });
   }
 

@@ -74,6 +74,8 @@ exports.login = (req, res, next) => {
 exports.fetchUser = (req, res, next) => {
   const userId = req.params.userId;
   User.findById(userId)
+    .populate('favoriteCats')
+    .select('-password')
     .then(user => {
       if (!user) {
         const error = new Error('User not found!');

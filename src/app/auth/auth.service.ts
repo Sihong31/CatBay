@@ -30,6 +30,10 @@ export class AuthService {
     return this.authStatusListener.asObservable();
   }
 
+  getUserDataStatusListener() {
+    return this.userDataStatusListener.asObservable();
+  }
+
   createUser(email: string, password: string) {
     const authData = { email: email, password: password };
     this.http.post<{message: string, userId: string}>('http://localhost:3000/auth/signup', authData)
@@ -94,7 +98,7 @@ export class AuthService {
   private fetchUserData() {
     this.http.get<{message: string, userData: any}>(`http://localhost:3000/auth/user/${this.userId}`)
       .subscribe(response => {
-        this.userDataStatusListener.next(response.userData.favoriteCats);
+        this.userDataStatusListener.next(response.userData);
       });
   }
 
