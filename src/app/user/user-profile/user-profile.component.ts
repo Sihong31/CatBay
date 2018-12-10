@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from 'src/app/auth/auth.service';
 
+import { User } from '../user.model';
+
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -9,13 +11,14 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class UserProfileComponent implements OnInit {
   userId: string;
+  user: User;
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.userId = this.authService.getUserId();
     this.authService.getUserDataStatusListener()
-      .subscribe(userData => {
+      .subscribe((userData: User) => {
+        this.user = userData;
         console.log(userData);
       });
   }
