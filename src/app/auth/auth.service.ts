@@ -95,7 +95,7 @@ export class AuthService {
     }
   }
 
-  private fetchUserData() {
+  fetchUserData() {
     this.http.get<{message: string, userData: any}>(`http://localhost:3000/auth/user/${this.userId}`)
       .subscribe(response => {
         this.userDataStatusListener.next(response.userData);

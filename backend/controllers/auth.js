@@ -76,6 +76,7 @@ exports.fetchUser = (req, res, next) => {
   User.findById(userId)
     .populate('favoriteCats')
     .select('-password')
+    .populate('cats')
     .then(user => {
       if (!user) {
         const error = new Error('User not found!');

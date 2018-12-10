@@ -25,6 +25,7 @@ export class CatListComponent implements OnInit {
       });
 
     if (this.userIsAuthenticated) {
+      this.authService.fetchUserData();
       this.authService.getUserDataStatusListener()
       .subscribe((userData) => {
         this.favoriteCats = userData.favoriteCats;
@@ -50,4 +51,5 @@ export class CatListComponent implements OnInit {
       });
     }
   }
+
 }

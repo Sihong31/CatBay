@@ -1,2 +1,35 @@
-<h2>Welcome back, user</h2>
-<h2>Your favorite Cats</h2>
+<h2>My Profile</h2>
+
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h3>Your cats</h3>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="cards-container" *ngIf="cats.length > 0; else noCats">
+      <mat-card *ngFor="let cat of cats; let i = index" [ngClass]="{'last-cat-row-item': i % 4 == 3}">
+        <img mat-card-image [src]="cat.imagePath" [alt]="cat.name">
+        <mat-card-title>{{ cat.name }}</mat-card-title>
+        <mat-card-subtitle>Price - ${{ cat.price }}</mat-card-subtitle>
+        <mat-card-actions>
+          <a color="primary" mat-raised-button [routerLink]="['cats', cat._id]">View Details</a>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <ng-template #noCats>
+      <p>You currently do not own any cats, click the button to create some!</p>
+      <a routerLink="/cats/new" mat-raised-button color="primary">Create Cat</a>
+    </ng-template>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h3>Your favorite cats</h3>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+  </mat-expansion-panel>
+
+</mat-accordion>

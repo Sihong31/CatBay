@@ -1,0 +1,17 @@
+h2 {
+  text-align: center;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cards-container mat-card {
+  margin: 0 15px 15px 0;
+  width: 20%;
+}
+
+mat-card.last-cat-row-item {
+  margin-right: 0;
+}
