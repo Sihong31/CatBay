@@ -12,6 +12,11 @@ h2 {
   width: 20%;
 }
 
+mat-card .mat-card-image {
+  max-height: 175px;
+  min-height: 175px;
+}
+
 mat-card.last-cat-row-item {
   margin-right: 0;
 }

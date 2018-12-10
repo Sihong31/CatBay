@@ -1,19 +1,19 @@
 <h2>My Profile</h2>
 
 <mat-accordion>
-  <mat-expansion-panel>
+  <mat-expansion-panel [expanded]="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <h3>Your cats</h3>
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <div class="cards-container" *ngIf="cats.length > 0; else noCats">
+    <div class="cards-container" *ngIf="cats; else noCats">
       <mat-card *ngFor="let cat of cats; let i = index" [ngClass]="{'last-cat-row-item': i % 4 == 3}">
         <img mat-card-image [src]="cat.imagePath" [alt]="cat.name">
         <mat-card-title>{{ cat.name }}</mat-card-title>
         <mat-card-subtitle>Price - ${{ cat.price }}</mat-card-subtitle>
         <mat-card-actions>
-          <a color="primary" mat-raised-button [routerLink]="['cats', cat._id]">View Details</a>
+          <a color="primary" mat-raised-button [routerLink]="['/cats', cat._id]">View Details</a>
         </mat-card-actions>
       </mat-card>
     </div>
@@ -29,7 +29,20 @@
         <h3>Your favorite cats</h3>
       </mat-panel-title>
     </mat-expansion-panel-header>
-
+    <div class="cards-container" *ngIf="favoriteCats; else noFavoriteCats">
+      <mat-card *ngFor="let cat of favoriteCats; let i = index" [ngClass]="{'last-cat-row-item': i % 4 == 3}">
+        <img mat-card-image [src]="cat.imagePath" [alt]="cat.name">
+        <mat-card-title>{{ cat.name }}</mat-card-title>
+        <mat-card-subtitle>Price - ${{ cat.price }}</mat-card-subtitle>
+        <mat-card-actions>
+          <a color="primary" mat-raised-button [routerLink]="['/cats', cat._id]">View Details</a>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <ng-template #noFavoriteCats>
+      <p>You currently do not have any favorite cats, go to the main page to find some favorites!</p>
+      <a routerLink="/" mat-raised-button color="primary">Home</a>
+    </ng-template>
   </mat-expansion-panel>
 
 </mat-accordion>
