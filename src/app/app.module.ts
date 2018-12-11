@@ -28,6 +28,7 @@ import { AuthService } from './auth/auth.service';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { UserService } from './user/user.service';
+import { UserCartComponent } from './user/user-cart/user-cart.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { UserService } from './user/user.service';
     CatEditComponent,
     LoginComponent,
     SignupComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    UserCartComponent
   ],
   imports: [
     BrowserModule,

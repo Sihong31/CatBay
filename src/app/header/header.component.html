@@ -1,6 +1,7 @@
 <mat-toolbar class="header" color="primary">
   <a class="brand" routerLink="/">CatBay</a>
   <ul class="navigation-list">
+    <li class="navigation-list__item" *ngIf="userIsAuthenticated" routerLink="/my-cart" routerLinkActive="active"><a><mat-icon>shopping_cart</mat-icon></a></li>
     <li class="navigation-list__item" *ngIf="userIsAuthenticated" routerLink="/my-profile" routerLinkActive="active"><a>My Profile</a></li>
     <li class="navigation-list__item" *ngIf="!userIsAuthenticated" routerLink="/login" routerLinkActive="active"><a>Log In</a></li>
     <li class="navigation-list__item" *ngIf="!userIsAuthenticated" routerLink="/signup" routerLinkActive="active"><a>Register</a></li>

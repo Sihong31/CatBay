@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { Cat } from '../cat-list/cat.model';
 
 @Injectable()
 export class UserService {
@@ -17,6 +18,10 @@ export class UserService {
 
   getCart(id: string) {
     return this.http.get<{}>(`http://localhost:3000/users/${id}/cart`);
+  }
+
+  addToCart(id: string, cat: Cat) {
+    return this.http.post<{message: string}>(`http://localhost:3000/users/${id}/cart`, cat);
   }
 
   getUserDataStatusListener() {

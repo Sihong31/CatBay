@@ -8,6 +8,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { AuthGuard } from './auth/auth.guard';
+import { UserCartComponent } from './user/user-cart/user-cart.component';
 
 const routes: Routes = [
   { path: '', component: CatListComponent, pathMatch: 'full' },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'cats/:catId/edit', component: CatEditComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'my-profile', component: UserProfileComponent, canActivate: [AuthGuard] }
+  { path: 'my-profile', component: UserProfileComponent, canActivate: [AuthGuard] },
+  { path: 'my-cart', component: UserCartComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

@@ -28,5 +28,9 @@ exports.getUser = (req, res, next) => {
 }
 
 exports.getCart = (req, res, next) => {
-  
+
+}
+
+exports.addToCart = (req, res, next) => {
+
 }

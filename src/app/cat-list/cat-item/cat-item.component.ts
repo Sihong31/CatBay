@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Cat } from '../cat.model';
 import { AuthService } from 'src/app/auth/auth.service';
 import { CatsService } from '../cats.service';
+import { UserService } from 'src/app/user/user.service';
 
 
 @Component({
@@ -16,11 +17,17 @@ export class CatItemComponent implements OnInit, OnDestroy  {
   @Input () catId;
   authSub: Subscription;
   userIsAuthenticated: boolean;
+  userId: string;
 
-  constructor(private authService: AuthService, private catService: CatsService, private renderer: Renderer2) { }
+  constructor(
+    private authService: AuthService,
+    private catService: CatsService,
+    private userService: UserService,
+    private renderer: Renderer2) { }
 
   ngOnInit() {
     this.userIsAuthenticated = this.authService.getIsAuth();
+    this.userId = this.authService.getUserId();
 
     this.authSub = this.authService.getAuthStatusListener()
       .subscribe(isAuthenticated => {
@@ -40,7 +47,7 @@ export class CatItemComponent implements OnInit, OnDestroy  {
   }
 
   onAddToCart() {
-    
+   this.userService.addToCart(this.userId, this.cat);
   }
 
   ngOnDestroy() {
