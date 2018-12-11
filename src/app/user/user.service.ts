@@ -17,11 +17,12 @@ export class UserService {
   }
 
   getCart(id: string) {
-    return this.http.get<{}>(`http://localhost:3000/users/${id}/cart`);
+    return this.http.get<{message: string, cart: Cat[]}>(`http://localhost:3000/users/${id}/cart`);
   }
 
   addToCart(id: string, cat: Cat) {
-    return this.http.post<{message: string}>(`http://localhost:3000/users/${id}/cart`, cat);
+    this.http.post<{message: string}>(`http://localhost:3000/users/${id}/cart`, {cat: cat})
+      .subscribe(result => {});
   }
 
   getUserDataStatusListener() {
