@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import 'rxjs/operators';
 
+import { UserService } from '../user/user.service';
+
 @Injectable()
 export class AuthService {
   private isAuthenticated = false;
@@ -11,9 +13,8 @@ export class AuthService {
   private tokenTimer: any;
   userId: string;
   authStatusListener = new Subject<boolean>();
-  userDataStatusListener = new Subject<any>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private userService: UserService) {}
 
   getToken() {
     return this.token;
@@ -29,10 +30,6 @@ export class AuthService {
 
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();
-  }
-
-  getUserDataStatusListener() {
-    return this.userDataStatusListener.asObservable();
   }
 
   createUser(email: string, password: string) {
@@ -53,7 +50,7 @@ export class AuthService {
           this.isAuthenticated = true;
           this.userId = result.userId;
           this.authStatusListener.next(true);
-          this.fetchUserData();
+          this.userService.fetchUserData(this.userId);
 
           const expiresInDuration = result.expiresIn;
           this.setAuthTimer(expiresInDuration);
@@ -65,6 +62,7 @@ export class AuthService {
           this.router.navigate(['/']);
         }
       }, error => {
+        console.log(error);
         this.authStatusListener.next(false);
       });
   }
@@ -92,15 +90,8 @@ export class AuthService {
       this.userId = authData.userId;
       this.setAuthTimer(expiresInDuration);
       this.authStatusListener.next(true);
-      this.fetchUserData();
+      this.userService.fetchUserData(this.userId);
     }
-  }
-
-  fetchUserData() {
-    this.http.get<{message: string, userData: any}>(`http://localhost:3000/auth/user/${this.userId}`)
-      .subscribe(response => {
-        this.userDataStatusListener.next(response.userData);
-      });
   }
 
   private setAuthTimer(duration: number) {

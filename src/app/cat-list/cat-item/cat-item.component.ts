@@ -39,6 +39,10 @@ export class CatItemComponent implements OnInit, OnDestroy  {
     }
   }
 
+  onAddToCart() {
+    
+  }
+
   ngOnDestroy() {
     this.authSub.unsubscribe();
   }

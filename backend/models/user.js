@@ -18,6 +18,10 @@ const userSchema = new Schema({
   favoriteCats: [{
     type: Schema.Types.ObjectId,
     ref: 'Cat'
+  }],
+  cart: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Cat'
   }]
 });
 

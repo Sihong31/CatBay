@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 
 const catRoutes = require('./routes/cat');
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use((req, res, next) => {
 
 app.use('/cats', catRoutes);
 app.use('/auth', authRoutes);
+app.use('/users', userRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err);

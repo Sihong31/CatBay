@@ -5,4 +5,5 @@ export interface User {
   email: string;
   favoriteCats: Cat[];
   cats: Cat[];
+  cart: Cat[];
 }

@@ -27,6 +27,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { AuthService } from './auth/auth.service';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
+import { UserService } from './user/user.service';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
   providers: [
     CatsService,
     AuthService,
+    UserService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

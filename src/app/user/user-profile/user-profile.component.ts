@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 
 import { User } from '../user.model';
 import { Cat } from 'src/app/cat-list/cat.model';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -16,11 +17,12 @@ export class UserProfileComponent implements OnInit {
   cats: Cat[];
   favoriteCats: Cat[];
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private userService: UserService) { }
 
   ngOnInit() {
-    this.authService.fetchUserData();
-    this.authService.getUserDataStatusListener()
+    this.userId = this.authService.getUserId();
+    this.userService.fetchUserData(this.userId);
+    this.userService.getUserDataStatusListener()
       .subscribe((userData: User) => {
         this.user = userData;
         this.cats = this.user.cats;

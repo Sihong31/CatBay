@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CatsService } from './cats.service';
 import { Cat } from './cat.model';
 import { AuthService } from '../auth/auth.service';
+import { UserService } from '../user/user.service';
 
 @Component({
   selector: 'app-cat-list',
@@ -13,11 +14,13 @@ export class CatListComponent implements OnInit {
   cats: Cat[];
   userIsAuthenticated: boolean;
   favoriteCats: [];
+  userId: string;
 
-  constructor(private catsService: CatsService, private authService: AuthService) { }
+  constructor(private catsService: CatsService, private authService: AuthService, private userService: UserService) { }
 
   ngOnInit() {
     this.userIsAuthenticated = this.authService.getIsAuth();
+    this.userId = this.authService.getUserId();
 
     this.authService.getAuthStatusListener()
       .subscribe(isAuthenticated => {
@@ -25,8 +28,8 @@ export class CatListComponent implements OnInit {
       });
 
     if (this.userIsAuthenticated) {
-      this.authService.fetchUserData();
-      this.authService.getUserDataStatusListener()
+      this.userService.fetchUserData(this.userId);
+      this.userService.getUserDataStatusListener()
       .subscribe((userData) => {
         this.favoriteCats = userData.favoriteCats;
         // get favoriteCats first and then get overall cats to do matching on
