@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import 'rxjs/operators';
 
 @Injectable()
 export class AuthService {

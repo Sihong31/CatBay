@@ -21,8 +21,8 @@ exports.createFavorite = (req, res, next) => {
     .catch(err => {
       if (!err.statusCode) {
         err.statusCode = 500;
-        next(err);
       }
+      next(err);
     })
 }
 
@@ -46,8 +46,8 @@ exports.removeFavorite = (req, res, next) => {
     .catch(err => {
       if (!err.statusCode) {
         err.statusCode = 500;
-        next(err);
       }
+      next(err);
     })
 }
 
@@ -79,6 +79,11 @@ exports.createCat = (req, res, next) => {
       return User.findById(req.userId);
     })
     .then(user => {
+      if (!user) {
+        const error = new Error('User not found!');
+        error.statusCode = 404;
+        throw error;
+      }
       user.cats.push(cat);
       return user.save();
     })
@@ -142,8 +147,8 @@ exports.updateCat = (req, res, next) => {
     .catch(err => {
       if (!err.statusCode) {
         err.statusCode = 500;
-        next(err);
       }
+      next(err);
     })
 }
 
@@ -178,7 +183,7 @@ exports.deleteCat = (req, res, next) => {
     .catch(err => {
       if (!err.statusCode) {
         err.statusCode = 500;
-        next(err);
       }
+      next(err);
     })
 }

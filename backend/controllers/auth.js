@@ -25,8 +25,8 @@ exports.signup = (req, res, next) => {
     .catch(err => {
       if (!err.statusCode) {
         err.statusCode = 500;
-        next(err);
       }
+      next(err);
     });
 }
 
@@ -49,7 +49,7 @@ exports.login = (req, res, next) => {
     .then(isEqualPassword => {
       if (!isEqualPassword) {
         const error = new Error('Invalid password!');
-        error.statusCode = 401;
+        error.statusCode = 403;
         throw error;
       }
       const token = jwt.sign({
@@ -66,8 +66,8 @@ exports.login = (req, res, next) => {
     .catch(err => {
       if (!err.statusCode) {
         err.statusCode = 500;
-        next(err);
       }
+      next(err);
     });
 };
 
@@ -91,7 +91,9 @@ exports.fetchUser = (req, res, next) => {
     .catch(err => {
       if (!err.statusCode) {
         err.statusCode = 500;
-        throw(err);
+        next(err);
+      } else {
+        next(err);
       }
     })
 }

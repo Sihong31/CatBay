@@ -9,6 +9,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  isAuthenticated;
 
   constructor(private authService: AuthService) { }
 
@@ -20,6 +21,11 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.authService.loginUser(form.value.email, form.value.password);
+    this.authService.getAuthStatusListener()
+      .subscribe(
+        isAuthenticated => {
+          this.isAuthenticated = isAuthenticated;
+        }
+      );
   }
-
 }
