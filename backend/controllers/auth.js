@@ -12,7 +12,8 @@ exports.signup = (req, res, next) => {
         email: email,
         password: hashedPassword,
         cats: [],
-        favoriteCats: []
+        favoriteCats: [],
+        cart: []
       });
       return user.save();
     })
