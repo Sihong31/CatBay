@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from '../auth/auth.service';
+import { UserService } from '../user/user.service';
 
 @Component({
   selector: 'app-header',
@@ -9,17 +10,27 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  userIsAuthenticated = false;
   private authSubscription: Subscription;
+  userIsAuthenticated = false;
+  userId: string;
+  cartCount: number;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private userService: UserService) { }
 
   ngOnInit() {
     this.userIsAuthenticated = this.authService.getIsAuth();
+    this.userId = this.authService.getUserId();
     this.authSubscription = this.authService.getAuthStatusListener()
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
       });
+    this.userService.getCart(this.userId);
+    this.userService.cartStatusListener.subscribe(
+      cartData => {
+        console.log(cartData.length);
+        this.cartCount = cartData.length;
+      }
+    );
   }
 
   onLogout() {
@@ -29,5 +40,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.authSubscription.unsubscribe();
   }
-  
+
 }
