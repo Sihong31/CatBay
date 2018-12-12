@@ -5,7 +5,7 @@
       *ngIf="userIsAuthenticated"
       routerLink="/my-cart">
         <a class="navigation-list__cart">
-          <div class="navigation-list__cart-count">
+          <div class="navigation-list__cart-count" *ngIf="cartCount">
               <span>{{ cartCount }}</span>
           </div>
           <mat-icon>shopping_cart</mat-icon>
