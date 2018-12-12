@@ -7,5 +7,6 @@ export interface Cat {
   price: number;
   imagePath: string;
   owner: string;
-  favoriteCat: boolean;
+  favoriteCat: string;
+  available: string;
 }

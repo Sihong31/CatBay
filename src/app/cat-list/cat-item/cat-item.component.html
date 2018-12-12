@@ -7,6 +7,6 @@
     <a color="accent" mat-raised-button *ngIf="userIsAuthenticated" (click)="onAddToCart()">Add to Cart</a>
   </mat-card-actions>
   <button *ngIf="userIsAuthenticated" class="cat-list-favorite" mat-icon-button color="accent" (click)="onToggleFavorite($event)">
-      <mat-icon aria-label="favorite" [ngClass]="{'isFavorite': cat.favoriteCat}">favorite</mat-icon>
+      <mat-icon aria-label="favorite" [ngClass]="{'isFavorite': cat.favoriteCat === 'true'}">favorite</mat-icon>
   </button>
 </mat-card>

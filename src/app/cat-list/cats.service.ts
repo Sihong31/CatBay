@@ -56,13 +56,6 @@ export class CatsService {
   }
 
   createCat(cat: Cat) {
-    // const catData = new FormData();
-    // catData.append('name', cat.name);
-    // catData.append('description', cat.description);
-    // catData.append('age', cat.age);
-    // catData.append('weight', cat.weight);
-    // catData.append('price', cat.price);
-    // catData.append('imagePath', cat.imagePath);
     this.http.post<{message: string, cat: Cat}>('http://localhost:3000/cats', cat)
       .subscribe(() => {
         this.router.navigate(['/']);

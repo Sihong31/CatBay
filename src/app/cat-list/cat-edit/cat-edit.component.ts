@@ -50,7 +50,8 @@ export class CatEditComponent implements OnInit {
                 price: retrievedCat.price,
                 imagePath: retrievedCat.imagePath,
                 owner: retrievedCat.owner,
-                favoriteCat: false
+                favoriteCat: retrievedCat.favoriteCat,
+                available: retrievedCat.available
               };
               this.form.setValue({
                 name: this.cat.name,
@@ -76,6 +77,7 @@ export class CatEditComponent implements OnInit {
     if (!this.editMode) {
       this.cat = this.form.value;
       this.cat.owner = this.userId;
+      this.cat.available = 'true';
       this.catsService.createCat(this.cat);
       this.form.reset();
     } else {

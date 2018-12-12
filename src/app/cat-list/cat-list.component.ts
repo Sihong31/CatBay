@@ -40,7 +40,7 @@ export class CatListComponent implements OnInit {
               this.cats.map(cat => {
                 this.favoriteCats.forEach((favoredCat: Cat) => {
                   if (cat._id === favoredCat._id) {
-                    cat.favoriteCat = true;
+                    cat.favoriteCat = 'true';
                   }
                 });
               });

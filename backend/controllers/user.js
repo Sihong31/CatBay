@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Cat = require('../models/cat');
 
 exports.getUser = (req, res, next) => {
   const userId = req.params.userId;
@@ -69,11 +70,12 @@ exports.addToCart = (req, res, next) => {
           throw error;
         }
       })
+      cat.available = 'false';
       user.cart.push(cat);
       return user.save();
     })
     .then(result => {
-      res.status(200).json({
+      return res.status(200).json({
         message: 'added to cart!',
         cart: result.cart
       })
@@ -89,6 +91,8 @@ exports.addToCart = (req, res, next) => {
 exports.removeFromCart = (req, res, next) => {
   const userId = req.params.userId;
   const catId = req.body.catId;
+  let fetchedUser;
+
   User.findById(userId)
     .populate('cart')
     .then(user => {
@@ -102,8 +106,18 @@ exports.removeFromCart = (req, res, next) => {
         error.statusCode = 403;
         throw error;
       }
-      user.cart.pull(catId);
-      return user.save();
+      fetchedUser = user;
+      return Cat.findById(catId);
+    })
+    .then(cat => {
+      if (!cat) {
+        const error = new Error('Cat not found!');
+        error.statusCode = 404;
+        throw error;
+      }
+      cat.available = true;
+      fetchedUser.cart.pull(catId);
+      return fetchedUser.save();
     })
     .then(result => {
       res.status(200).json({

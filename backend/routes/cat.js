@@ -1,13 +1,14 @@
 const express = require('express');
 
 const catController = require('../controllers/cat');
-const checkAuth = require('../middleware/check-auth.js');
+const checkAuth = require('../middleware/check-auth');
+const authInfo = require('../middleware/auth-info');
 
 const router = express.Router();
 
 
 // GET /cats
-router.get('', catController.getCats);
+router.get('', authInfo, catController.getCats);
 
 // POST /cats
 router.post('', checkAuth, catController.createCat);

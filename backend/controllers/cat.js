@@ -52,9 +52,33 @@ exports.removeFavorite = (req, res, next) => {
 }
 
 exports.getCats = (req, res, next) => {
-  Cat.find()
+  const userId = req.userId;
+  if (!userId) {
+    Cat.find()
+      .then(cats => {
+        res.status(200).json({ message: 'Cats fetched', cats: cats});
+      })
+      .catch(err => {
+        if (!err.statusCode) {
+          err.statusCode = 500;
+        }
+        next(err);
+      });
+  } else {
+    let fetchedCats;
+    Cat.find()
     .then(cats => {
-      res.status(200).json({ message: 'Cats fetched', cats: cats});
+      fetchedCats = cats;
+      return User.findById(userId)
+    })
+    .then(user => {
+      let updatedCats = [];
+      fetchedCats.forEach((cat, index) => {
+        if (!(user.cart.indexOf(fetchedCats[index]._id) > -1)) {
+          updatedCats.push(cat);
+        }
+      })
+      res.status(200).json({ message: 'Cats fetched', cats: updatedCats});
     })
     .catch(err => {
       if (!err.statusCode) {
@@ -62,6 +86,7 @@ exports.getCats = (req, res, next) => {
       }
       next(err);
     });
+  }
 }
 
 exports.createCat = (req, res, next) => {
@@ -72,7 +97,8 @@ exports.createCat = (req, res, next) => {
     weight: req.body.weight,
     price: req.body.price,
     imagePath: req.body.imagePath,
-    owner: req.body.owner
+    owner: req.body.owner,
+    available: req.body.available
   });
   cat.save()
     .then(result => {
