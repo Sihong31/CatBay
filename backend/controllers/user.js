@@ -54,6 +54,7 @@ exports.addToCart = (req, res, next) => {
   const userId = req.params.userId;
   const cat = req.body.cat;
   User.findById(userId)
+    .populate('cart')
     .then(user => {
       if (!user) {
         const error = new Error('User not found!');
@@ -65,7 +66,41 @@ exports.addToCart = (req, res, next) => {
     })
     .then(result => {
       res.status(200).json({
-        message: 'added to cart!'
+        message: 'added to cart!',
+        cart: result.cart
+      })
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    })
+}
+
+exports.removeFromCart = (req, res, next) => {
+  const userId = req.params.userId;
+  const catId = req.body.catId;
+  User.findById(userId)
+    .populate('cart')
+    .then(user => {
+      if (!user) {
+        const error = new Error('User not found!');
+        error.statusCode = 404;
+        throw error;
+      }
+      if (user._id.toString() !== req.userId) {
+        const error = new Error('User not authorized!');
+        error.statusCode = 403;
+        throw error;
+      }
+      user.cart.pull(catId);
+      return user.save();
+    })
+    .then(result => {
+      res.status(200).json({
+        message: 'Removed from cart!',
+        cart: result.cart
       })
     })
     .catch(err => {

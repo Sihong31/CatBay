@@ -1,5 +1,16 @@
 <div class="shopping-cart-container">
-  <div class="cat" *ngFor="let cat of cart">
-    {{ cat.name }}
-  </div>
+  <mat-list>
+    <h2>Your Cart</h2>
+    <mat-list-item *ngFor="let cat of cart">
+      <img mat-list-icon [src]="cat.imagePath" [alt]="cat.description"/>
+      <h4 mat-line><strong>Name:</strong> {{ cat.name }} | <strong>Age:</strong> {{ cat.age }} | <strong>Weight:</strong> {{ cat.weight }} | <strong>Price:</strong> ${{ cat.price }}</h4>
+      <p mat-line>{{ cat.description }}</p>
+      <div mat-line>
+        <a class="mat-list-item__remove" mat-raised-button color="accent" (click)="onRemoveFromCart(cat._id)">Remove</a>
+      </div>
+    </mat-list-item>
+  </mat-list>
 </div>
+
+
+

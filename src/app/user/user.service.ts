@@ -6,6 +6,7 @@ import { Cat } from '../cat-list/cat.model';
 @Injectable()
 export class UserService {
   userDataStatusListener = new Subject<any>();
+  cartStatusListener = new Subject<any>();
 
   constructor(private http: HttpClient) {}
 
@@ -17,15 +18,31 @@ export class UserService {
   }
 
   getCart(id: string) {
-    return this.http.get<{message: string, cart: Cat[]}>(`http://localhost:3000/users/${id}/cart`);
+    this.http.get<{message: string, cart: Cat[]}>(`http://localhost:3000/users/${id}/cart`)
+      .subscribe(cartData => {
+        this.cartStatusListener.next(cartData.cart);
+      });
   }
 
   addToCart(id: string, cat: Cat) {
-    this.http.post<{message: string}>(`http://localhost:3000/users/${id}/cart`, {cat: cat})
-      .subscribe(result => {});
+    this.http.post<{message: string, cart: Cat[]}>(`http://localhost:3000/users/${id}/cart`, {cat: cat})
+      .subscribe(cartData => {
+        this.cartStatusListener.next(cartData.cart);
+      });
+  }
+
+  removeFromCart(userId: string, catId: string) {
+    this.http.request<{message: string, cart: Cat[]}>('delete', `http://localhost:3000/users/${userId}/cart`, {body: {catId: catId}})
+      .subscribe(cartData => {
+        this.cartStatusListener.next(cartData.cart);
+      });
   }
 
   getUserDataStatusListener() {
     return this.userDataStatusListener.asObservable();
+  }
+
+  getCartStatusListener() {
+    return this.cartStatusListener.asObservable();
   }
 }
