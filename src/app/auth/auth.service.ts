@@ -50,7 +50,9 @@ export class AuthService {
           this.isAuthenticated = true;
           this.userId = result.userId;
           this.authStatusListener.next(true);
+          // fetch user data for logged in user, fetch the cart of the logged in user
           this.userService.fetchUserData(this.userId);
+          this.userService.getCart(this.userId);
 
           const expiresInDuration = result.expiresIn;
           this.setAuthTimer(expiresInDuration);
@@ -84,13 +86,16 @@ export class AuthService {
     }
     const now = new Date();
     const expiresInDuration = authData.expirationDate.getTime() - now.getTime();
+    // fetch user auth information when page gets refreshed
     if (expiresInDuration > 0) {
       this.token = authData.token;
       this.isAuthenticated = true;
       this.userId = authData.userId;
       this.setAuthTimer(expiresInDuration);
       this.authStatusListener.next(true);
+      // fetch user's data and user's cart when page gets refreshed
       this.userService.fetchUserData(this.userId);
+      this.userService.getCart(this.userId);
     }
   }
 

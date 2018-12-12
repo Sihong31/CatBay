@@ -5,6 +5,7 @@ import { Cat } from '../cat.model';
 import { AuthService } from 'src/app/auth/auth.service';
 import { CatsService } from '../cats.service';
 import { UserService } from 'src/app/user/user.service';
+import { User } from 'src/app/user/user.model';
 
 
 @Component({
@@ -28,7 +29,6 @@ export class CatItemComponent implements OnInit, OnDestroy  {
   ngOnInit() {
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.userId = this.authService.getUserId();
-
     this.authSub = this.authService.getAuthStatusListener()
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;

@@ -31,7 +31,7 @@ export class UserCartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.cartSubscription.unsubscribe();
+    // this.cartSubscription.unsubscribe();
   }
 
 }

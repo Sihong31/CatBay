@@ -6,6 +6,7 @@ exports.getUser = (req, res, next) => {
     .populate('favoriteCats')
     .select('-password')
     .populate('cats')
+    .populate('cart')
     .then(user => {
       if (!user) {
         const error = new Error('User not found!');
@@ -61,6 +62,13 @@ exports.addToCart = (req, res, next) => {
         error.statusCode = 404;
         throw error;
       }
+      user.cart.forEach(cartCat => {
+        if (cartCat._id.toString() === cat._id) {
+          const error = new Error('Cat already exists in cart!');
+          error.statusCode = 304;
+          throw error;
+        }
+      })
       user.cart.push(cat);
       return user.save();
     })

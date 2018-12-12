@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { AuthService } from 'src/app/auth/auth.service';
-
 import { User } from '../user.model';
 import { Cat } from 'src/app/cat-list/cat.model';
 import { UserService } from '../user.service';
@@ -11,7 +11,8 @@ import { UserService } from '../user.service';
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, OnDestroy {
+  userDataSubscription: Subscription;
   userId: string;
   user: User;
   cats: Cat[];
@@ -22,12 +23,16 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
     this.userId = this.authService.getUserId();
     this.userService.fetchUserData(this.userId);
-    this.userService.getUserDataStatusListener()
+    this.userDataSubscription = this.userService.getUserDataStatusListener()
       .subscribe((userData: User) => {
         this.user = userData;
         this.cats = this.user.cats;
         this.favoriteCats = this.user.favoriteCats;
       });
+  }
+
+  ngOnDestroy() {
+    // this.userDataSubscription.unsubscribe();
   }
 
 }

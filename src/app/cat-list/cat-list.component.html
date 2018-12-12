@@ -4,5 +4,5 @@
     <mat-divider></mat-divider>
 </div>
 <div class="cat-list__container">
-    <app-cat-item *ngFor="let cat of cats; let i = index;" [cat]="cat" [catId]="cat._id" [ngClass]="{'last-cat-row-item': i % 3 == 2}"></app-cat-item>
+    <app-cat-item *ngFor="let cat of cats; let i = index;" [userData]="userData" [cat]="cat" [catId]="cat._id" [ngClass]="{'last-cat-row-item': i % 3 == 2}"></app-cat-item>
 </div>
