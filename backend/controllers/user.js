@@ -70,11 +70,13 @@ exports.addToCart = (req, res, next) => {
           throw error;
         }
       })
+      fetchedCats = user.cats;
       cat.available = 'false';
       user.cart.push(cat);
       return user.save();
     })
     .then(result => {
+      console.log(result);
       return res.status(200).json({
         message: 'added to cart!',
         cart: result.cart

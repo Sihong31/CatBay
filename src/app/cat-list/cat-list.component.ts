@@ -37,7 +37,7 @@ export class CatListComponent implements OnInit {
           .subscribe((catData: { message: string, cats: Cat[] }) => {
             this.cats = catData.cats;
             if (this.favoriteCats) {
-              this.cats.map(cat => {
+              this.cats.forEach(cat => {
                 this.favoriteCats.forEach((favoredCat: Cat) => {
                   if (cat._id === favoredCat._id) {
                     cat.favoriteCat = 'true';

@@ -24,8 +24,9 @@ export class UserService {
       });
   }
 
-  addToCart(id: string, cat: Cat) {
-    this.http.post<{message: string, cart: Cat[]}>(`http://localhost:3000/users/${id}/cart`, {cat: cat})
+  addToCart(userId: string, cat: Cat) {
+    this.fetchUserData(userId);
+    this.http.post<{message: string, cart: Cat[]}>(`http://localhost:3000/users/${userId}/cart`, {cat: cat})
       .subscribe(cartData => {
         this.cartStatusListener.next(cartData.cart);
       });
