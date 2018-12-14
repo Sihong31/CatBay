@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { UserService } from '../user.service';
 import { Cat } from 'src/app/cat-list/cat.model';
 import { AuthService } from '../../auth/auth.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-cart',
@@ -14,15 +15,21 @@ export class UserCartComponent implements OnInit, OnDestroy {
   cart: Cat[];
   userId: string;
   cartSubscription: Subscription;
+  totalPrice: number;
 
-  constructor(private userService: UserService, private authService: AuthService) { }
+  constructor(private userService: UserService, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.userId = this.authService.getUserId();
     this.userService.getCart(this.userId);
     this.cartSubscription = this.userService.getCartStatusListener()
       .subscribe(cart => {
+        // resets this.totalPrice on each listen
+        this.totalPrice = 0;
         this.cart = cart;
+        this.cart.forEach(cat => {
+          this.totalPrice += (cat.price);
+        });
       });
   }
 
@@ -31,7 +38,7 @@ export class UserCartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.cartSubscription.unsubscribe();
+    this.cartSubscription.unsubscribe();
   }
 
 }

@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import 'rxjs/operators';
 
 import { UserService } from '../user/user.service';
+
 
 @Injectable()
 export class AuthService {
@@ -93,9 +94,8 @@ export class AuthService {
       this.userId = authData.userId;
       this.setAuthTimer(expiresInDuration);
       this.authStatusListener.next(true);
-      // fetch user's data and user's cart when page gets refreshed
+      // fetch user's data when page gets refreshed
       this.userService.fetchUserData(this.userId);
-      this.userService.getCart(this.userId);
     }
   }
 
