@@ -1,6 +1,7 @@
 const Cat = require('../models/cat');
 const User = require('../models/user');
 
+// save the cat favorited by a user
 exports.createFavorite = (req, res, next) => {
   const catId = req.body.catId;
   User.findById(req.userId)
@@ -26,6 +27,7 @@ exports.createFavorite = (req, res, next) => {
     })
 }
 
+// remove the cat favorited by the user
 exports.removeFavorite = (req, res, next) => {
   const catId = req.body.catId;
   User.findById(req.userId)
@@ -71,6 +73,7 @@ exports.getCats = (req, res, next) => {
       fetchedCats = cats;
       return User.findById(userId)
     })
+    // after fetching all the cats, match them against cats that are already in User's cart and remove them from all cats list
     .then(user => {
       let updatedCats = [];
       fetchedCats.forEach((cat, index) => {

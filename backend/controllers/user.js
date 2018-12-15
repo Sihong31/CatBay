@@ -52,6 +52,8 @@ exports.getCart = (req, res, next) => {
     })
 }
 
+
+// add cat to user cart
 exports.addToCart = (req, res, next) => {
   const userId = req.params.userId;
   const cat = req.body.cat;
@@ -63,6 +65,7 @@ exports.addToCart = (req, res, next) => {
         error.statusCode = 404;
         throw error;
       }
+      // check to see if cat is already in cart
       user.cart.forEach(cartCat => {
         if (cartCat._id.toString() === cat._id) {
           const error = new Error('Cat already exists in cart!');
@@ -90,6 +93,7 @@ exports.addToCart = (req, res, next) => {
     })
 }
 
+// remove cat from user cart
 exports.removeFromCart = (req, res, next) => {
   const userId = req.params.userId;
   const catId = req.body.catId;

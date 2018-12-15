@@ -9,6 +9,7 @@ const app = express();
 
 app.use(bodyParser.json());
 
+// headers to set
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PUT, PATCH, DELETE');
@@ -16,10 +17,12 @@ app.use((req, res, next) => {
   next();
 });
 
+// routes
 app.use('/cats', catRoutes);
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 
+// general error handling
 app.use((err, req, res, next) => {
   console.error(err);
   const status = err.statusCode || 500;

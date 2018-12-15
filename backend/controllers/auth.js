@@ -3,9 +3,11 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 
+// user sign up
 exports.signup = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
+  // hash password with bcrypt
   bcrypt.hash(password, 12)
     .then(hashedPassword => {
       const user = new User({
@@ -31,6 +33,7 @@ exports.signup = (req, res, next) => {
     });
 }
 
+// user login
 exports.login = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -47,6 +50,7 @@ exports.login = (req, res, next) => {
       fetchedUser = user;
       return bcrypt.compare(password, user.password);
     })
+    // check if bcrypt passwords are equal then sign jwt token and pass details to frontend
     .then(isEqualPassword => {
       if (!isEqualPassword) {
         const error = new Error('Invalid password!');
