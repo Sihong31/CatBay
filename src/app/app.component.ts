@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
+    // checks auth status of user on each init
     this.authService.checkAuthUserStatus();
   }
 

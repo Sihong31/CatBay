@@ -22,6 +22,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.userId = this.authService.getUserId();
+    // get user data
     this.userService.fetchUserData(this.userId);
     this.userDataSubscription = this.userService.getUserDataStatusListener()
       .subscribe((userData: User) => {

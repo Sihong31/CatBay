@@ -34,6 +34,7 @@ export class UserService {
   }
 
   removeFromCart(userId: string, catId: string) {
+    // http.request to send a body with delete action, userId to identify cart, catId to identify cat in user's cart
     this.http.request<{message: string, cart: Cat[]}>('delete', `http://localhost:3000/users/${userId}/cart`, {body: {catId: catId}})
       .subscribe(cartData => {
         this.cartStatusListener.next(cartData.cart);

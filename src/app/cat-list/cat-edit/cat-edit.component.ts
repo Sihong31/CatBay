@@ -23,6 +23,7 @@ export class CatEditComponent implements OnInit {
 
   ngOnInit() {
     this.userId = this.authService.getUserId();
+    // reactive form
     this.form = new FormGroup({
       name: new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
       description: new FormControl(null, {validators: [Validators.required]}),
@@ -31,6 +32,9 @@ export class CatEditComponent implements OnInit {
       price: new FormControl(null, {validators: [Validators.required]}),
       imagePath: new FormControl(null, {validators: [Validators.required]})
     });
+    // check route to see if it has an dynamic id or not
+    // determines if we are in edit mode or not for the form
+    // existing data is prepopulated into the form in edit mode
     this.route.paramMap.subscribe(
       (paramMap: ParamMap) => {
         if (paramMap.has('catId')) {

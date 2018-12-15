@@ -55,12 +55,14 @@ export class AuthService {
           this.userService.fetchUserData(this.userId);
           this.userService.getCart(this.userId);
 
+          // set expiration date for logged in session
           const expiresInDuration = result.expiresIn;
           this.setAuthTimer(expiresInDuration);
 
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration);
 
+          // save auth data in local storage
           this.saveAuthData(token, expirationDate, this.userId);
           this.router.navigate(['/']);
         }
@@ -76,11 +78,13 @@ export class AuthService {
     this.userId = null;
     this.authStatusListener.next(false);
     clearTimeout(this.tokenTimer);
+    // clear local storage auth data
     this.clearAuthData();
     this.router.navigate(['/login']);
   }
 
   checkAuthUserStatus() {
+    // get auth data from local storage
     const authData = this.getAuthData();
     if (!authData) {
       return;

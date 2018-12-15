@@ -33,6 +33,7 @@ export class CatListComponent implements OnInit {
         .subscribe((userData) => {
           this.favoriteCats = userData.favoriteCats;
           // get favoriteCats first and then get overall cats to do matching on
+          // cats favorited by the user previouslly will be reflected
           this.catsService.getCats()
           .subscribe((catData: { message: string, cats: Cat[] }) => {
             this.cats = catData.cats;

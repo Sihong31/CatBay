@@ -35,6 +35,7 @@ export class CatItemComponent implements OnInit, OnDestroy  {
       });
   }
 
+  // toggle the favorite button on each cat item
   onToggleFavorite(event: any) {
     const hasClass = event.target.classList.contains('isFavorite');
     if (!hasClass) {
